@@ -1,0 +1,109 @@
+#include <iostream>
+#include <string>
+
+void displayFile(const char *filename) {
+    FILE *file = fopen(filename, "r");
+    if (file == NULL) {
+        printf("Failed to open file: %s\n", filename);
+        return;
+    }
+
+    char c;
+    while ((c = fgetc(file)) != EOF) {
+        putchar(c);
+    }
+
+    fclose(file);
+}
+//P1
+int main() {
+    char name[50];
+    char email[50];
+    char age[10];
+    int cr = 0, cb = 0, ca = 0, cd = 0, cc = 0;
+
+point:
+    printf("Enter your name: ");
+    scanf("%s", name);
+
+    printf("Enter your email: ");
+    scanf("%s", email);
+
+    printf("Enter your age: ");
+    scanf("%s", age);
+
+    printf("Select Genre:\n");
+    printf("1.) Romance\n");
+    printf("2.) Biography\n");
+    printf("3.) Action\n");
+    printf("4.) Drama\n");
+    printf("5.) Comedy\n");
+
+    int gc;
+    printf("Enter your choice: ");
+    scanf("%d", &gc);
+
+    switch (gc) {
+        case 1:
+            printf("Displaying romantic movies\n");
+            displayFile("romance.txt");
+            cr++;
+            break;
+        case 2:
+            printf("Displaying biographical movies\n");
+            displayFile("biographay1.txt");
+            cb++;
+            break;
+        case 3:
+            printf("Displaying action movies\n");
+            displayFile("action1.txt");
+            ca++;
+            break;
+        case 4:
+            printf("Displaying drama movies\n");
+            displayFile("dramamov.txt");
+            cd++;
+            break;
+        case 5:
+            printf("Displaying comedy movies\n");
+            displayFile("komedy.txt");
+            cc++;
+            break;
+        default:
+            printf("Invalid category\n");
+            break;
+    }
+//P2
+    int max = cr;
+    max = (cb > max) ? cb : max;
+    max = (ca > max) ? ca : max;
+    max = (cd > max) ? cd : max;
+    max = (cc > max) ? cc : max;
+    //new user interface
+    printf("Welcome to our movie database\n");
+    if (ca == max) {
+        printf("We recommend action movies as our user's favorite\n");
+    } else if (cr == max) {
+        printf("We recommend romantic movies as our user's favorite\n");
+    } else if (cb == max) {
+        printf("We recommend biographical movies as our user's favorite\n");
+    } else if (cc == max) {
+        printf("We recommend comedy movies as our user's favorite\n");
+    } else {
+        printf("We recommend drama movies as our user's favorite\n");
+    }
+//P3
+    char uch[5];
+    printf("Are you satisfied with our recommendation? (yes or no): ");
+    scanf("%s", uch);
+
+    if (uch=="yes"){
+        printf("THANK YOU SO MUCH FOR USING OUR DATABASE\n");
+    } else if (uch=="no") {
+        goto point;
+    } else {
+        printf("Invalid entry\n");
+    }
+
+    return 0;
+}
